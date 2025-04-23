@@ -28,7 +28,7 @@ public class CategoryController {
 
 	@Autowired
 	private CategoryService categoryService;
-<<<<<<< HEAD
+
 
 	@PostMapping("/save-category")
 	public ResponseEntity<?> saveCategory(@RequestBody Category category) {
@@ -48,7 +48,7 @@ public class CategoryController {
 			return ResponseEntity.noContent().build();
 		} else {
 			return new ResponseEntity<>(categories, HttpStatus.OK);
-=======
+
 	
 	@PostMapping("/save-category")
 	 public ResponseEntity<?> saveCategory(@RequestBody CategoryDto categoryDto) throws dtoValidationException{
@@ -71,7 +71,7 @@ public class CategoryController {
 			return ResponseEntity.noContent().build();
 		} else {
 			return CommonUtil.createBuildResponse(categories, HttpStatus.OK);
->>>>>>> f31ea53f10a75cac6355c0c9505b0265464079be
+
 		}
 	}
 	
