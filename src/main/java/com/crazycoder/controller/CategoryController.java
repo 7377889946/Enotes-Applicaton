@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.crazycoder.commonUtil.CommonUtil;
 import com.crazycoder.dto.CategoryDto;
 import com.crazycoder.dto.CategoryResponse;
+import com.crazycoder.exception.ExitCategoryException;
 import com.crazycoder.exception.ResourceNotFoundException;
 import com.crazycoder.exception.dtoValidationException;
 import com.crazycoder.model.Category;
@@ -32,36 +33,14 @@ public class CategoryController {
 
 
 	@PostMapping("/save-category")
-	public ResponseEntity<?> saveCategory(@RequestBody Category category) {
-		Boolean savedCategory = categoryService.saveCategory(category);
+	public ResponseEntity<?> saveCategory(@RequestBody CategoryDto categoryDto) throws ExitCategoryException, dtoValidationException {
+		Boolean savedCategory = categoryService.saveCategory(categoryDto);
 
 		if (savedCategory) {
 			return new ResponseEntity<>("saved Successfully", HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>("Not saved", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-	}
-
-	@GetMapping("/category")
-	public ResponseEntity<?> getAllCategory() {
-		List<Category> categories = categoryService.getAllCategory();
-		if (org.springframework.util.CollectionUtils.isEmpty(categories)) {
-			return ResponseEntity.noContent().build();
-		} else {
-			return new ResponseEntity<>(categories, HttpStatus.OK);
-
-	
-	@PostMapping("/save-category")
-	 public ResponseEntity<?> saveCategory(@RequestBody CategoryDto categoryDto) throws dtoValidationException{
-		Boolean savedCategory=categoryService.saveCategory(categoryDto);
-		
-		if(savedCategory) {
-			return CommonUtil.createBuildResponseMessage("Success", HttpStatus.OK);
-//			return new ResponseEntity<>("saved Successfully",HttpStatus.OK);
-		} else{
-			return CommonUtil.createErrorResponseMessage("Not saved", HttpStatus.INTERNAL_SERVER_ERROR);
-//		    return new ResponseEntity<>("Not saved",HttpStatus.INTERNAL_SERVER_ERROR);
-	    }
 	}
 
 	@GetMapping("/")
