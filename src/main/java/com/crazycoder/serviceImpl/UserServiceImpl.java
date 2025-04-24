@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import com.crazycoder.dto.EmailRequest;
 import com.crazycoder.dto.UserDto;
+import com.crazycoder.dto.loginRequest;
+import com.crazycoder.dto.loginRessponse;
 import com.crazycoder.model.Role;
 import com.crazycoder.model.User;
 import com.crazycoder.repository.RoleRepository;
@@ -73,5 +75,25 @@ public class UserServiceImpl implements UserService{
 		List<Integer> reqRoleId= userDto.getRoles().stream().map(r -> r.getId()).toList();
 		List<Role> roles= roleRepository.findAllById(reqRoleId);
 		user.setRole(roles);
+	}
+	
+	
+	@Override
+	public loginRessponse login(loginRequest loginrequest) {
+		
+		org.springframework.security.core.Authentication authentication=
+		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginrequest.getEmail(), loginrequest.getPassword()));
+		
+		if(authentication.isAuthenticated()) {
+			CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
+			String token ="ajhfakjhfajhjahdjkfhjdas";
+			
+			loginRessponse Ressponse = loginRessponse.builder()
+					                                 .user(modelMapper.map(customUserDetails.getUser(), UserDto.class))
+					                                 .token(token)
+					                                 .build();
+			return Ressponse;
+		}
+		return null;
 	}
 }
