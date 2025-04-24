@@ -3,6 +3,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import com.crazycoder.dto.EmailRequest;
@@ -13,6 +15,7 @@ import com.crazycoder.model.Role;
 import com.crazycoder.model.User;
 import com.crazycoder.repository.RoleRepository;
 import com.crazycoder.repository.UserRepository;
+import com.crazycoder.security.CustomUserDetails;
 import com.crazycoder.service.UserService;
 import com.crazycoder.util.Validation;
 
@@ -35,6 +38,9 @@ public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	private EmailSendService emailSendService;
+	
+	@Autowired
+	private AuthenticationManager authenticationManager;
 	
 	@Override
 	public Boolean register(UserDto userDto) throws UnsupportedEncodingException, MessagingException {
