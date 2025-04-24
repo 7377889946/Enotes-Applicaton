@@ -20,6 +20,7 @@ import com.crazycoder.dto.CategoryDto;
 import com.crazycoder.dto.CategoryResponse;
 import com.crazycoder.exception.ResourceNotFoundException;
 import com.crazycoder.exception.dtoValidationException;
+import com.crazycoder.model.Category;
 import com.crazycoder.service.CategoryService;
 
 @RestController
