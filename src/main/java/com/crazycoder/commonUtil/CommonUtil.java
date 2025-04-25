@@ -10,6 +10,8 @@ import org.springframework.util.ObjectUtils;
 
 import com.crazycoder.handler.GenericResponse;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 public class CommonUtil {
 	
 	//if API getting success 
@@ -76,6 +78,12 @@ public class CommonUtil {
 			 
 		}
 	
+	}
+	
+	public static String getUrl(HttpServletRequest request) {
+		String apiurl=request.getRequestURL().toString(); //http://localhost:8080/api/v1/auth
+		apiurl=apiurl.replace(request.getServletPath(), ""); //http://localhost:8080
+		return apiurl;
 	}
 	
 	
