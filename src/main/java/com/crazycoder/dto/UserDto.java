@@ -31,7 +31,7 @@ public class UserDto {
 	private String mobNo;
 	private String password;
 	
-	private List<RoleDto> roles;
+	private List<RoleDto> role;
 	
 	@AllArgsConstructor
 	@Getter
